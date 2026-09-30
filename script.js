@@ -124,73 +124,106 @@ function closeRecomendation() {
 
 
 document.addEventListener("keydown", (event) => {
-    if(event.key === "Tab") {
+
+    if (event.key === "Tab") {
         event.preventDefault();
         return;
     }
-    if(currentScene === "content"){
-        if(event.key === "Escape"){
+
+    if (currentScene === "content") {
+
+        if (event.key === "Escape") {
             event.preventDefault();
             closeDialog();
         }
+
         return;
     }
 
-    if(currentScene === "recomendation"){
-        if(
-             event.key === "r" ||
+    if (currentScene === "recommendation") {
+
+        if (
+            event.key === "r" ||
             event.key === "R" ||
             event.key === "Enter"
-        ){
+        ) {
             event.preventDefault();
-            getRandomRecomendation();
+            getRandomRecommendation();
             return;
         }
-        if(event.key === "Escape"){
+
+        if (event.key === "Escape") {
             event.preventDefault();
+            closeRecommendation();
             return;
         }
+
         return;
     }
-    if(event.key === "Arrow.right"){
-       event.preventDefault();
-        activeIndex = (activeIndex + 1) % tiles.length;
+
+    if (event.key === "ArrowRight") {
+        event.preventDefault();
+
+        activeIndex =
+            (activeIndex + 1) % tiles.length;
+
         updateActiveTile();
+
         return;
     }
-    if(event.key === "ArrowLeft"){
+
+    if (event.key === "ArrowLeft") {
         event.preventDefault();
-        activeIndex =    (activeIndex - 1 + tiles.length)% tiles.length;
+
+        activeIndex =
+            (activeIndex - 1 + tiles.length) %
+            tiles.length;
+
         updateActiveTile();
+
         return;
     }
 
-    if(event.key() === "r" || event.key() === "R"){
-        event.preventDefault();
-        openRecomendation();
-    }
-    if(event.key === "Tab") {
-        event.preventDefault();
-    }
-    if(event.key === "Escape"){
+    if (event.key === "Enter") {
         event.preventDefault();
 
-        if(currentScene !== "landing"){
-            currentScene = "landing";
+        openDialog(activeIndex);
 
-            document
-                .querySelectorAll(".bg-layer")
-                .forEach((layer) => {
-                    layer.classList.remove("active");
-                });
-            document
-                .querySelector("#bg-layer-landing")
-                .classList.add("active");
-
-            console.log("Returned to landing");
-        }
+        return;
     }
 
+    if (
+        event.key === "r" ||
+        event.key === "R"
+    ) {
+        event.preventDefault();
+
+        openRecommendation();
+
+        return;
+    }
 });
+
 updateActiveTile();
-loadRecomendation();
+// loadRecommendations();
+
+
+let cursorTimeout;
+
+function showCursor(){
+        document.body.classList.add("mouse-visible");
+
+    clearTimeout(cursorTimeout);
+
+    cursorTimeout = setTimeout(() => {
+        document.body.classList.remove("mouse-visible");
+    }, 2000);
+}
+
+document.addEventListener("mousedown", () =>{
+    showCursor();
+});
+
+document.addEventListener("contextmenu", (event) =>{
+    event.preventDefault();
+});
