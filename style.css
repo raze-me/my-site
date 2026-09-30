@@ -22,10 +22,87 @@ html, body{
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: var();
-    font-family: var();
-    color: var();
+    background-color: var(--color-dark);
+    font-family: var(--font-display);
+    color: var(--color-ink);
 }
+
+.stage {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 58px);
+    overflow: hidden;
+}
+
+/* background image */
+.bg-container{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    background-color: var(--color-ink);
+}
+.bg-layer,
+.bg-layer-active{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    transform: scale(1.04);
+    transform: opacity 500ms ease, transform 700ms ease;
+}
+
+.bg-layer-active{
+    opacity: 1;
+    transform: scale(1);
+}
+
+.scene-header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+}
+
+.stage.in-dialog .scene-header {
+    opacity: 0.85;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        tranform: scale(0.8);
+    }
+}
+
+title-tag {
+    font-family: var(--font-comic);
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0 var(--color-ink);
+}
+
+
+
+
 
 
 /* footer */
