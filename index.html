@@ -14,24 +14,46 @@
 
     <main class="stage" id="app-stage" role="application" aria-label="Comic Design">
         <div class="bg-container" id="bg-container">
-            <div class="bg-layer-active" id="bg-layer-landing" style="background-image: url('assets/bg1.png');" ></div>
+            <div class="bg-layer active" id="bg-layer-landing" style="background-image: url('assets/bg1.png');" ></div>
             <div class="bg-layer" id="bg-layer-me" style="background-image: url('assets/bg2.png');"></div>
             <div class="bg-layer" id="bg-layer-projects" style="background-image: url('assets/bg3.png');"></div>
-            <div class="bg-layer" id="bg-layer-hobbies" style="background-image: url('assets/bg4.png');"></div>
-            
-            
+            <div class="bg-layer" id="bg-layer-hobbies" style="background-image: url('assets/bg4.png');"></div> 
             
         </div>
         <header class="scene-header">
             <div class="title-tag">Portfolio</div>
         </header>
+
+    <section class="landing-scene" id="landing-scene">
+        <div class="tiles-cluster">
+        <div class="nav-tile" data-index="0">
+            <div class="tile-focus-indicator">
+                <span class="key-tag">1</span>
+            </div>
+            <div class="tile-art-wrapper">
+                <img src="assets/Group 25.png" alt="Me Navigation Tile" class="tile-image">
+            </div>
+        </div>
+        <div class="nav-tile" data-index="1">
+            <div class="tile-focus-indicator">
+                <span class="key-tag">2</span>
+            </div>
+            <div class="tile-art-wrapper">
+                <img src="assets/Group 26.png" alt="Projects" class="tile-image">
+            </div>
+        </div>
+        <div class="nav-tile" data-index="2">
+            <div class="tile-focus-indicator">
+                <span class="key-tag">3</span>
+            </div>
+            <div class="tile-art-wrapper">
+                <img src="assets/Group 27.png" alt="Projects" class="tile-image">
+            </div>
+        </div>
+        </div>
+    </section>
     </main>
 
-    <!-- Tittles -->
-    <section>
-        
-
-    </section>
 
 
     <!-- tutorial footer -->
@@ -53,5 +75,6 @@
         </div>
     </footer>
     
+    <script src="script.js"></script>
 </body>
 </html>

@@ -7,6 +7,11 @@
     --color-surface: #fdfcf7;
     --color-dark: #0b0b10;
 
+    --shadow-comic-xl: 18px 18px 0 var(var(--color-ink));
+    --shadow-comic-lg: 12px 12px 0 var(var(--color-ink));
+    --shadow-comic-md: 8px 8px 0 var(var(--color-ink));
+    --shadow-comic-sm: 4px 4px 0 var(var(--color-ink));
+
 
 }
 
@@ -32,6 +37,9 @@ html, body{
     width: 100%;
     height: calc(100vh - 58px);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* background image */
@@ -44,8 +52,7 @@ html, body{
     z-index: 1;
     background-color: var(--color-ink);
 }
-.bg-layer,
-.bg-layer-active{
+.bg-layer{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -53,24 +60,26 @@ html, body{
     inset: 0;
     background-size: cover;
     background-position: center center;
+    background-repeat: no-repeat;
     transform: scale(1.04);
-    transform: opacity 500ms ease, transform 700ms ease;
+    transition: opacity 600ms ease-out, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
 }
 
-.bg-layer-active{
+.bg-layer.active{
     opacity: 1;
     transform: scale(1);
 }
 
 .scene-header{
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     z-index: 20;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 3rem;
+
+    padding: 1.5rem 3rem 0.5rem;
 }
 
 .stage.in-dialog .scene-header {
@@ -91,18 +100,112 @@ html, body{
     }
 }
 
-title-tag {
+.title-tag {
     font-family: var(--font-comic);
-    font-size: 1.6rem;
-    letter-spacing: 0.1em;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
     color: #fff;
     text-transform: uppercase;
-    text-shadow: 3px 3px 0 var(--color-ink);
+    text-shadow: 3px 3px 0 var(--color-ink), 0 0 15px rgba(255, 230, 0, 0.4);
+}
+
+/* nav tiles */
+.landing-scene{
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+}
+
+.tiles-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 2.8rem;
+    max-width: 1300px;
+
+    margin: 0 auto;
+    position: relative;
+}
+
+.nav-tile { 
+    position: relative;
+    z-index: 10;
+    outline: none;
+    transition:  
+    transform 300ms ease,
+    opacity 300ms ease,
+    filter 300ms ease;
+
+    /* filter: 
+        drop-shadow(18px 18px 0 var(--color-ink))
+        drop-shadow(8px 8px 0 var(--color-ink)); */
+}
+
+nav-tile.active-tile {
+    transform: scale(1.08) translateY(-16px);
+    z-index: 20;
+}
+
+.nav-tile.active-tile .tile-image{
+    filter:
+        sepia(1)
+        saturate(8)
+        hue-rotate(2deg)
+        brightness(1.03);
+}
+
+.nav-tile:not(.active-tile) {
+    opacity: 0.75;
+    filter: 
+        grayscale(0.65)
+        brightness(0.85)
+        drop-shadow(18px 18px 0 var(--color-ink))
+        drop-shadow(8px 8px 0 var(--color-ink));
+    transform: scale(0.95);
+}
+.title-art-wrapper { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tile-image {
+    display: block;
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    object-fit: contain;
+}
+
+.tile-focus-indicator { 
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
 }
 
 
+.key-tag{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
 
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    border: 2px solid var(--color-ink);
 
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
 
 
 /* footer */
