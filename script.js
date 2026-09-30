@@ -1,12 +1,26 @@
 const tiles = document.querySelectorAll(".nav-tile");
-
-let currentScene = "landing";
-let activeIndex = 0;
+const stage = document.querySelector("#app-stage");
+const dialogs = {
+    0: document.querySelector("#dialog-me"),
+    1: document.querySelector("#dialog-projects"),
+    2: document.querySelector("#dialog-hobbies")
+};
 const backgrounds = {
     0: document.querySelector('#bg-layer-me'),
     1: document.querySelector('#bg-layer-projects'),
     2: document.querySelector('#bg-layer-hobbies')
 };
+
+const landingBackground = document.querySelector("#bg-layer-landing");
+const recomendationModal = document.querySelector("bg-recomendation-modal");
+const recomendationTitle = document.querySelector("#recomendation-title");
+const recomendationDescription = document.querySelector("#recomendation-description");
+
+let recomendation = [];
+
+
+let activeIndex = 0;
+let currentScene = "landing";
 
 function updateActiveTile() {
     tiles.forEach((tile, index)=> {
@@ -27,29 +41,133 @@ function switchBackground(index){
     }
 }
 
-function setActiveTile(){
 
+function openDialog(index) {
+    const dialog = dialogs[index];
+
+    if(!dialog){
+        return;
+    }
     currentScene = "content";
-    switchBackground(activeIndex);
-    console.log(
-        "Entered scene:",
-        activeIndex
-    );
+    switchBackground(index);
+
+    document
+        .querySelectorAll(".content-dialog")
+        .forEach((item)=>{
+            item.classList.remove("active");
+        });
+    dialog.classList.add("active");
+    stage.classList.add("in-dialog");
 }
 
+function closeDialog() {
+    currentScene = "landing";
+    document
+        .querySelectorAll(".content-dialog")
+        .forEach((dialog) =>{
+            dialog.classList.remove("active");
+        });
+    stage.classList.remove(".in-dialog");
+    document
+        .querySelectorAll(".in-dialog")
+        .forEach((layer)=>{
+            layer.classList.remove("active");
+        });
+    document
+        .querySelector("#bg-layer-handling")
+        .classList.add("active");
+}
+
+function setActiveTile(){
+
+    openDialog(activeIndex);
+}
+
+async function loadRecomendation() {
+    try {
+        const reponse = await fetch("data/recomendation.json");
+        if(!Response.ok) {
+            throw new Error("Failed to load recomendation");
+        }
+        recomendation = await Response.json()
+    }catch(error){
+        console.error(error);
+        recomendation=[];
+    }
+}
+
+function getRandomRecomendation(){
+    if(!recomendation.length){
+        recomendationDescription.textContent="No Recomendation";
+        recomendationDescription.textContent="No recomendation data is available";
+        return;
+    }
+    const randomIndex =Math.floor(Math.random() * recomendation.length);
+
+    const recommendation =
+        recommendations[randomIndex];
+
+    recommendationTitle.textContent =
+        recommendation.title || "Untitled";
+
+    recommendationDescription.textContent =
+        recommendation.description ||
+        "No description available.";
+
+}
+
+function closeRecomendation() {
+    currentScene = "landing";
+    stage.classList.remove("recomendation-open");
+    landingBackground.classList.add("active");
+}
+
+
 document.addEventListener("keydown", (event) => {
-    if(event.key === "Arrow.right"){
+    if(event.key === "Tab") {
         event.preventDefault();
-        activeIndex=(activeIndex+1)%tiles.length;
+        return;
+    }
+    if(currentScene === "content"){
+        if(event.key === "Escape"){
+            event.preventDefault();
+            closeDialog();
+        }
+        return;
+    }
+
+    if(currentScene === "recomendation"){
+        if(
+             event.key === "r" ||
+            event.key === "R" ||
+            event.key === "Enter"
+        ){
+            event.preventDefault();
+            getRandomRecomendation();
+            return;
+        }
+        if(event.key === "Escape"){
+            event.preventDefault();
+            return;
+        }
+        return;
+    }
+    if(event.key === "Arrow.right"){
+       event.preventDefault();
+        activeIndex = (activeIndex + 1) % tiles.length;
         updateActiveTile();
+        return;
     }
     if(event.key === "ArrowLeft"){
         event.preventDefault();
-        activeIndex = (activeIndex-1+tiles.length)%tiles.length;
-
-        event.preventDefault();
-        activeIndex = (activeIndex)
+        activeIndex =    (activeIndex - 1 + tiles.length)% tiles.length;
         updateActiveTile();
+        return;
+    }
+
+    if(event.key() === "r" || event.key() === "R"){
+        event.preventDefault();
+        openRecomendation();
     }
     if(event.key === "Tab") {
         event.preventDefault();
@@ -72,7 +190,7 @@ document.addEventListener("keydown", (event) => {
             console.log("Returned to landing");
         }
     }
-    
+
 });
 updateActiveTile();
-
+loadRecomendation();

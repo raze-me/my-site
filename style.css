@@ -207,6 +207,204 @@ nav-tile.active-tile {
     font-size: 0.85rem;
 }
 
+/* dialog box */
+.dialog-stage{
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 2rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms ease,
+                visibility 300ms ease;
+}
+
+.stage.in-dialog .dialog-stage{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+}
+
+.content-dialog{
+    position: absolute;
+    width: min(1000px, 88vh);
+    height: min(560px, 72);
+    padding: 2rem 2.5rem;
+    background: var(--color-surface);
+    border: 4px solid var(--color-ink);
+    box-shadow: 
+        18px 18px 0 var(--color-ink),
+        8px 8px 0 var(--color-ink);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.92) translateY(20px);
+    transition: 
+        opacity 300ms ease; 
+        transform: 400ms cubic-bezier(0.16, 1, 0.3, 1)
+        visibility 300ms ease;
+}
+
+.content-dialog.active{
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--color-ink);
+}
+
+
+.dialog-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+}
+
+.dialog-esc {
+   font-family: var(--font-mono);
+   font-style: 0.75rem;
+   font-weight: 700;
+}
+
+.dialog-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100% -60px);
+}
+
+.dialog-content h2{
+    font-family: var(--font-comic);
+    font-style: clamp(5rem, 10vw, 9rem);
+    line-height: 2rem;
+    color: var(--color-ink);
+}
+
+.dialog-content p {
+    max-width: 650px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+
+/* recomendation box */
+.recomendation-modal {
+    position: absolute;
+    inset: 0;
+    z-index: 35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 250ms ease,
+                visibility 250ms ease;
+    pointer-events: none;
+}
+.stage.recomendation-open .recomendation-modal{
+    opacity: 1;
+    visibility: visible;
+}
+
+.recomendation-card{
+    width: min(650px, 80vw);
+    padding: 1.5em 2rem;
+    background: var(--color-surface);
+    border: 4px solid var(--color-ink);
+    box-shadow: var(--shadow-comic-lg),
+                var(--shadow-comic-sm);
+    transform: scale(0.94);
+    transition: transform 300ms ease;
+}
+
+.stage.recomendation-open .recomendation-card{
+    transform: scale(1);
+}
+.recomendation-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.recomendation-label,
+.recomendation-esc,
+.recomendation-footer{
+    font-family: var(--font-mono);
+    font-style: 0.75rem;
+    font-weight: 700;
+}
+
+.recomendation-content {
+    padding: 2.5rem 0;
+}
+
+.recomendation-content h2{
+    font-family: var(--font-comic);
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 0.9;
+    margin-bottom: 1rem;
+}
+
+.recomendation-content p {
+    min-width: 550px;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.recomendation-footer{
+    padding-top: 0.8rem;
+    border-top: 2px solid var(--color-ink);
+}
+
+.recomendation-badge{
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 25;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem 1rem;
+    background: var(--color-surface);
+    border: 3px solid var(--color-ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
+}
+
+.rec-key-bubble{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-ink);
+    color: var(--color-surface);
+
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.rec-label {
+    font-family: var(--font-mono);
+    font-style: 0.7rem;
+    font-weight: 700;
+}
+
+
+
+
 
 /* footer */
 .controls-hud { 
