@@ -16,14 +16,14 @@ const backgrounds = {
 
 const landingBackground = document.querySelector("#bg-layer-landing");
 
-const recommendationModal =
-    document.querySelector("#recommendation-modal");
+// const recommendationModal =
+//     document.querySelector("#recommendation-modal");
 
-const recommendationTitle =
-    document.querySelector("#recommendation-title");
+// const recommendationTitle =
+//     document.querySelector("#recommendation-title");
 
-const recommendationDescription =
-    document.querySelector("#recommendation-description");
+// const recommendationDescription =
+//     document.querySelector("#recommendation-description");
 
 let recommendations = [];
 let activeIndex = 0;
@@ -106,84 +106,84 @@ function closeDialog() {
 }
 
 
-async function loadRecommendations() {
-    try {
-        const response = await fetch(
-            "data/recommendations.json"
-        );
+// async function loadRecommendations() {
+//     try {
+//         const response = await fetch(
+//             "data/recommendations.json"
+//         );
 
-        if (!response.ok) {
-            throw new Error(
-                "Failed to load recommendations"
-            );
-        }
+//         if (!response.ok) {
+//             throw new Error(
+//                 "Failed to load recommendations"
+//             );
+//         }
 
-        const data = await response.json();
+//         const data = await response.json();
 
-        if (!Array.isArray(data)) {
-            throw new Error(
-                "Recommendation data must be an array"
-            );
-        }
+//         if (!Array.isArray(data)) {
+//             throw new Error(
+//                 "Recommendation data must be an array"
+//             );
+//         }
 
-        recommendations = data.filter((item) => {
-            return (
-                item &&
-                typeof item.title === "string" &&
-                typeof item.description === "string"
-            );
-        });
+//         recommendations = data.filter((item) => {
+//             return (
+//                 item &&
+//                 typeof item.title === "string" &&
+//                 typeof item.description === "string"
+//             );
+//         });
 
-    } catch (error) {
-        console.error(error);
-        recommendations = [];
-    }
-}
-
-
-function getRandomRecommendation() {
-    if (!recommendations.length) {
-        recommendationTitle.textContent =
-            "NO RECOMMENDATION";
-
-        recommendationDescription.textContent =
-            "No recommendation data is available.";
-
-        return;
-    }
-
-    const randomIndex =
-        Math.floor(
-            Math.random() * recommendations.length
-        );
-
-    const recommendation =
-        recommendations[randomIndex];
-
-    recommendationTitle.textContent =
-        recommendation.title;
-
-    recommendationDescription.textContent =
-        recommendation.description;
-}
+//     } catch (error) {
+//         console.error(error);
+//         recommendations = [];
+//     }
+// }
 
 
-function openRecommendation() {
-    if (currentScene !== "landing") {
-        return;
-    }
+// function getRandomRecommendation() {
+//     if (!recommendations.length) {
+//         recommendationTitle.textContent =
+//             "NO RECOMMENDATION";
 
-    currentScene = "recommendation";
+//         recommendationDescription.textContent =
+//             "No recommendation data is available.";
 
-    getRandomRecommendation();
+//         return;
+//     }
 
-    stage.classList.add("recommendation-open");
+//     const randomIndex =
+//         Math.floor(
+//             Math.random() * recommendations.length
+//         );
 
-    recommendationModal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-}
+//     const recommendation =
+//         recommendations[randomIndex];
+
+//     recommendationTitle.textContent =
+//         recommendation.title;
+
+//     recommendationDescription.textContent =
+//         recommendation.description;
+// }
+
+
+// function openRecommendation() {
+//     if (currentScene !== "landing") {
+//         return;
+//     }
+
+//     currentScene = "recommendation";
+
+//     getRandomRecommendation();
+
+//     stage.classList.add("recommendation-open");
+
+//     recommendationModal.setAttribute(
+//         "aria-hidden",
+//         "false"
+//     );
+// }
 
 
 function closeRecommendation() {
@@ -244,26 +244,6 @@ document.addEventListener("keydown", (event) => {
         return;
     }
 
-    if (currentScene === "recommendation") {
-
-        if (
-            event.key === "r" ||
-            event.key === "R" ||
-            event.key === "Enter"
-        ) {
-            event.preventDefault();
-            getRandomRecommendation();
-            return;
-        }
-
-        if (event.key === "Escape") {
-            event.preventDefault();
-            closeRecommendation();
-        }
-
-        return;
-    }
-
     if (event.key === "ArrowRight") {
         event.preventDefault();
 
@@ -295,27 +275,22 @@ document.addEventListener("keydown", (event) => {
         return;
     }
 
-    if (
-        event.key === "r" ||
-        event.key === "R"
-    ) {
-        event.preventDefault();
-
-        openRecommendation();
-
-        return;
-    }
+    // if (event.key === "r" ||event.key === "R") {
+    //     event.preventDefault();
+    //     openRecommendation()
+    //     return;
+    // }
 
     if (event.key === "Escape") {
         event.preventDefault();
 
         if (currentScene !== "landing") {
             closeDialog();
-            closeRecommendation();
+            // closeRecommendation(); not need when recomendation not used only
         }
     }
 });
 
 
 updateActiveTile();
-loadRecommendations();
+// loadRecommendations();
