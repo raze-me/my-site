@@ -47,6 +47,10 @@ The cursor is hidden by default. A mouse click temoporarily reveals it for two s
 
 Well there not much to add here but you can always add your own personal recomendations in the json. I'll try them personally.
 
+## Note to Reviewer
+
+script has multiple commented code (its recomendation modal which i cudnt implement due to time limit, my bad)
+
 ---
 
 raze-me

@@ -1,6 +1,8 @@
 const tiles = document.querySelectorAll(".nav-tile");
 const stage = document.querySelector("#app-stage");
 const dialogStage = document.querySelector("#dialog-stage");
+const projectTiles = document.querySelectorAll(".project-tile");
+
 
 const dialogs = {
     0: document.querySelector("#dialog-me"),
@@ -29,7 +31,7 @@ let recommendations = [];
 let activeIndex = 0;
 let currentScene = "landing";
 let cursorTimeout;
-
+let activeProjectIndex=0;
 
 function updateActiveTile() {
     tiles.forEach((tile, index) => {
@@ -40,6 +42,13 @@ function updateActiveTile() {
     });
 }
 
+function updateActiveProject(){
+    projectTiles.forEach((project, index) => {
+        project.classList.toggle(
+            "active-project", index === activeProjectIndex
+        );
+    });
+}
 
 function switchBackground(index) {
     document.querySelectorAll(".bg-layer").forEach((layer) => {
@@ -66,11 +75,18 @@ function showLandingBackground() {
 function openDialog(index) {
     const dialog = dialogs[index];
 
+
+
     if (!dialog) {
         return;
     }
-
     currentScene = "content";
+
+    if(index===1){
+        activeProjectIndex = 0;
+        updateActiveProject();
+    }
+
 
     switchBackground(index);
 
@@ -236,13 +252,51 @@ document.addEventListener("keydown", (event) => {
 
     if (currentScene === "content") {
 
-        if (event.key === "Escape") {
-            event.preventDefault();
-            closeDialog();
+        const projectsOpen = document
+                .querySelector("#dialog-projects")
+                .classList
+                .contains("active");
+    
+            if (projectsOpen) {
+                if (event.key === "ArrowRight") {
+                    event.preventDefault();
+                    activeProjectIndex =
+                        (activeProjectIndex + 1) % projectTiles.length;
+                    updateActiveProject();
+                    return;
+                }
+             if (event.key === "ArrowLeft") {
+                 event.preventDefault(); 
+                 activeProjectIndex =
+                     (activeProjectIndex - 1 + projectTiles.length) %
+                     projectTiles.length;
+                 updateActiveProject();
+                 return;
+             }
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const selectedProject =
+                    projectTiles[activeProjectIndex];
+                const repo =
+                    selectedProject.dataset.repo;
+                if (repo) {
+                    window.open(
+                        repo,
+                        "_blank",
+                        "noopener,noreferrer"
+                    );
+                }       
+                return;
+            }
         }
+            if (event.key === "Escape") {
+                event.preventDefault();
+                closeDialog();
+            }
 
         return;
     }
+
 
     if (event.key === "ArrowRight") {
         event.preventDefault();
@@ -293,4 +347,5 @@ document.addEventListener("keydown", (event) => {
 
 
 updateActiveTile();
+updateActiveProject();
 // loadRecommendations();

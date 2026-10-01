@@ -357,6 +357,107 @@ body.mouse-visible {
     letter-spacing: 0.05em;
 }
 
+.projects-content{
+    justify-content: flex-start;
+}
+.projects-content h2 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(3.5rem, 6vw, 5rem);
+}
+.project-tiles{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 850px;
+}
+.project-tile{
+    position: relative;
+    padding: 1.2rem;
+    background: #ffffff;
+    border: 3px solid var(--color-ink);
+    box-shadow: 6px 6px  0 var(--color-ink);
+    transition: 
+                transform 200ms ease,
+                background-color 200ms ease,
+                box-shadow 200ms ease;
+}
+.project-tile.active-project{
+    background: #ffe600;
+    transform: translateY(-6px);
+    box-shadow: 10px 10px 0 var(--color-ink);
+    z-index: 2;
+}
+/* .project-featured{
+    grid-column: span 2;
+    padding: 1.5rem;
+} */
+.project-number{
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+.project-tile h3{
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.project-featured h3{
+    font-size: 1.5rem;
+}
+.project-tile p{
+    max-width: none;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
+.hobbies-content{
+    justify-content: flex-start;
+}
+.hobbies-content h2{
+    margin-bottom: 1.5rem;
+}
+.hobby-tiles{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 850px;
+}
+.hobby-tile{
+    position: relative;
+    padding: 1.2rem;
+    background: #ffffff;
+    border: 3px solid var(--color-ink);
+    transition: transform 200ms ease;
+}
+.hobby-number{
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+.hobby-title h3{
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+.hobby-tile p{
+    max-width: none;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
+
 .controls-hud {
     position: relative;
     z-index: 40;
